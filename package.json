@@ -23,13 +23,14 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
+    "sqlite3": "^5.1.6",
     "wait-on": "^7.0.1",
     "web-vitals": "^2.1.4"
   },
   "main": "public/main.js",
   "homepage": "./",
   "scripts": {
-    "start-backend": "node server.js",
+    "start-backend": "node backend/server.js",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

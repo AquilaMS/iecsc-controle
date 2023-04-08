@@ -15,7 +15,7 @@ export default function StateTextFields() {
   const [name, setName] = React.useState('Cat in the Hat');
 
   const connect = () => {
-    axios.get('http://localhost:3001/')
+    axios.get('http://localhost:3001/get')
       .then(response => {
         console.log(response.data);
       })
