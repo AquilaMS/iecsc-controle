@@ -1,32 +1,31 @@
 const express = require('express');
 const app = express();
-const db = require('./db').db;
+const bd = require('./bd').sequelize
 const cors = require('cors');
 
+const membroRouter = require('./routes/Membro')
+
 app.use(cors());
+app.use(express.json())
+
+app.use('/membro', membroRouter)
+
+const syncDB = async ()=>{
+  try{
+    await bd.sync()
+    console.log("All models were synchronized successfully.");
+  }catch(error){
+    console.error('Unable to connect to the database:', error);
+  }
+}
 
 app.get('/', (req, res) => {
   const data = { message: 'Hello from the backend!' };
   res.json(data);
 });
 
-app.get('/get', async (req, res) => {
-  try {
-    const rows = await new Promise((resolve, reject) => {
-      db.all('SELECT * FROM membros', [], (err, rows) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(rows);
-        }
-      });
-    });
-
-    res.json(rows);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).json({ error: err.message });
-  }
+app.get('/get', syncDB, async (req, res) => {
+  
 });
 
 app.listen(3001, () => {

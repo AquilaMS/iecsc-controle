@@ -20,9 +20,11 @@
     "dayjs": "^1.11.7",
     "electron": "^24.0.0",
     "express": "^4.18.2",
+    "nodemon": "^2.0.22",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
+    "sequelize": "^6.30.0",
     "sqlite3": "^5.1.6",
     "wait-on": "^7.0.1",
     "web-vitals": "^2.1.4"
@@ -30,6 +32,7 @@
   "main": "public/main.js",
   "homepage": "./",
   "scripts": {
+    "start-backend-test":"nodemon backend/server.js",
     "start-backend": "node backend/server.js",
     "start": "react-scripts start",
     "build": "react-scripts build",

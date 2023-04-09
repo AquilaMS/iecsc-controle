@@ -13,9 +13,13 @@ import Button from '@mui/material/Button';
 
 export default function StateTextFields() {
   const [name, setName] = React.useState('Cat in the Hat');
-
+  const membroTeste = {
+    nome: 'joao',
+    data_nascimento: '01/01/2001',
+    estado_civil: 'solteiro'
+  }
   const connect = () => {
-    axios.get('http://localhost:3001/get')
+    axios.post('http://localhost:3001/membro/insert', membroTeste)
       .then(response => {
         console.log(response.data);
       })
