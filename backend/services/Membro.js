@@ -14,6 +14,12 @@ const insertNewMembro = async(membro)=>{
     }
 }
 
+const getAllMembros = async ()=>{
+    const allMembros = await Membro.findAll({attributes:['id','nome', 'estado_civil']})
+    return allMembros
+}
+
 module.exports = {
-    insertNewMembro
+    insertNewMembro,
+    getAllMembros
 }

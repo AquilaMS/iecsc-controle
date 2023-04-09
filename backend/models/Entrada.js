@@ -1,23 +1,23 @@
 const { DataTypes } = require('sequelize');
 const db = require('../bd').sequelize
 
-const Membro = db.define('Membro', {
+const Entrada = db.define('Entrada', {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true
     },
-    nome: {
+    valor: {
+        type: DataTypes.FLOAT
+    },
+    tipo: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    data_nascimento: {
-        type: DataTypes.DATE
-    },
-    estado_civil: {
+    membro_nome: {
         type: DataTypes.STRING
     },
 }, {
 });
 
-module.exports = Membro
+module.exports = Entrada
