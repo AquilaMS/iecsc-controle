@@ -8,44 +8,41 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import axios from 'axios';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
+
+import userLogic from '../logics/User'
+import DialogModal from '../items/Modal'
 
 export default function StateTextFields() {
   const [name, setName] = useState('');
   const [dateBirth, setDateBirth] = useState(null)
   const [estadoCivil, setEstadoCivil] = useState('solteiro')
 
+  const [open, setOpen] = React.useState(true);
+
   useEffect(() => {
     console.log(dateBirth)
   }, [estadoCivil, dateBirth, name]);
   
   const handleDate = (date)=>{
-    const newDate = new Date(date)
-    console.log(newDate.toString())
+    setDateBirth(date)
   }
+  
+  const handleModalClickOpen = () => {
+    setOpen(true)
+  };
 
+  const handleModalClose = () => {
+    setOpen(false);
+  };
   const handleEstadoCivil = (ec) =>{
     setEstadoCivil(ec.target.value)
   }
-  const membroTeste = {
-    nome: 'joao',
-    data_nascimento: '01/01/2001',
-    estado_civil: 'solteiro'
-  }
-
-  const connect = () => {
-    axios.get('http://localhost:3001/membro/get', membroTeste)
-      .then(response => {
-        console.log(response.data);
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  }
-
+  
   return (
+    <div>
+      <DialogModal open={open} handleClose={handleModalClose}  />
     <Box
       component="form"
       sx={{
@@ -54,16 +51,19 @@ export default function StateTextFields() {
       noValidate
       autoComplete="on"
     >
+    
       <TextField
         id="outlined-controlled"
         label="Nome"
         value={name}
+        inputProps={{ style: { textTransform: "capitalize" } }}
         onChange={(event) => {
           setName(event.target.value)
         }}
       />
+      
       <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <DatePicker value={dateBirth} format='DD/MM/YYYY' onChange={(newValue) => {handleDate(newValue)}} />
+        <DatePicker value={dateBirth} format='DD/MM/YYYY' onChange={handleDate} />
       </LocalizationProvider>
       <RadioGroup
         row
@@ -77,8 +77,9 @@ export default function StateTextFields() {
         <FormControlLabel value="viuvo" control={<Radio />} label="Viuvo" />
       </RadioGroup>
       <Stack spacing={2} direction="row">
-        <Button variant="contained" onClick={connect}>Testar</Button>
+        <Button variant="contained" onClick={handleModalClickOpen}>Inserir</Button>
       </Stack>
     </Box>
+    </div>
   );
 }
