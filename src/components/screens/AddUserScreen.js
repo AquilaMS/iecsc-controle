@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -12,14 +13,30 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 
 export default function StateTextFields() {
-  const [name, setName] = React.useState('Cat in the Hat');
+  const [name, setName] = useState('');
+  const [dateBirth, setDateBirth] = useState(null)
+  const [estadoCivil, setEstadoCivil] = useState('solteiro')
+
+  useEffect(() => {
+    console.log(dateBirth)
+  }, [estadoCivil, dateBirth, name]);
+  
+  const handleDate = (date)=>{
+    const newDate = new Date(date)
+    console.log(newDate.toString())
+  }
+
+  const handleEstadoCivil = (ec) =>{
+    setEstadoCivil(ec.target.value)
+  }
   const membroTeste = {
     nome: 'joao',
     data_nascimento: '01/01/2001',
     estado_civil: 'solteiro'
   }
+
   const connect = () => {
-    axios.post('http://localhost:3001/membro/insert', membroTeste)
+    axios.get('http://localhost:3001/membro/get', membroTeste)
       .then(response => {
         console.log(response.data);
       })
@@ -42,17 +59,18 @@ export default function StateTextFields() {
         label="Nome"
         value={name}
         onChange={(event) => {
-          setName(event.target.value);
+          setName(event.target.value)
         }}
       />
       <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <DatePicker label='Data de Nascimento' />
+        <DatePicker value={dateBirth} format='DD/MM/YYYY' onChange={(newValue) => {handleDate(newValue)}} />
       </LocalizationProvider>
       <RadioGroup
         row
-        aria-labelledby="demo-row-radio-buttons-group-label"
         name="row-radio-buttons-group"
         label='aa'
+        value={estadoCivil}
+        onChange={handleEstadoCivil}
       >
         <FormControlLabel value="solteiro" control={<Radio />} label="Solteiro" />
         <FormControlLabel value="casado" control={<Radio />} label="Casado" />
