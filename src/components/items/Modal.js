@@ -12,15 +12,31 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export default function AlertDialogSlide(props) {
-    const testUser = {
-        "nome": "carlos",
-        "data_nascimento": "01/01/2001",
-        "estado_civil": "casado"
-    }.toString()
     const { open, handleClose } = props
+    const aaa = 'aaaa'
+    let message = {}
+    const testUser = {
+        nome: 'carlos',
+        data_nascimento: '01/01/2001',
+        estado_civil: 'casado'
+    }
+
     const handleClickOpen = () => {
         props.openModal()
     };
+    
+    const checkStatus = () => {
+        
+        let messageObj = {}
+        console.log(messageObj)
+        if (props.status === 'ok-insert-user') {
+            messageObj.title = 'Objeto inserido'
+            messageObj.text = props.membroObj
+        }
+       message = messageObj
+    }
+    
+    checkStatus()
 
     return (
         <div>
@@ -31,10 +47,10 @@ export default function AlertDialogSlide(props) {
                 onClose={handleClose}
                 aria-describedby="alert-dialog-slide-description"
             >
-                <DialogTitle>{"Use Google's location service?"}</DialogTitle>
+                <DialogTitle>{message.title}</DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-slide-description" >
-                       
+                        {JSON.stringify(message.text)}
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>

@@ -11,15 +11,16 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 
-import userLogic from '../logics/User'
 import DialogModal from '../items/Modal'
 
 export default function StateTextFields() {
   const [name, setName] = useState('');
   const [dateBirth, setDateBirth] = useState(null)
-  const [estadoCivil, setEstadoCivil] = useState('solteiro')
+  const [estadoCivil, setEstadoCivil] = useState('')
 
-  const [open, setOpen] = React.useState(true);
+  let userObj = {name,dateBirth,estadoCivil}
+
+  const [open, setOpen] = React.useState(false);
 
   useEffect(() => {
     console.log(dateBirth)
@@ -42,7 +43,7 @@ export default function StateTextFields() {
   
   return (
     <div>
-      <DialogModal open={open} handleClose={handleModalClose}  />
+      <DialogModal open={open} handleClose={handleModalClose} status='ok-insert-user' membroObj={userObj} />
     <Box
       component="form"
       sx={{
